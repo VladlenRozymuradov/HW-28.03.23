@@ -1,0 +1,16 @@
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    //префикс сразу возвращает новое значение
+    int x1=5, x2=5, a;
+    a=x1++;
+    cout<<"PRE: "<<a<<endl;
+    a=++x2;
+    cout<<"POST: "<<a;
+    return 0;
+}
+
