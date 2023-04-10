@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class BowlingBall {
+	int weight;
+	string color;
+public:
+	static int count;
+	BowlingBall() {
+		count++;
+	} // = default;
+
+	BowlingBall(int weight, string color) {
+		count++;
+		setParams(weight, color);
+	}
+
+	BowlingBall(const BowlingBall &other) {
+		setParams(other.weight, other.color);
+		count++;
+	}
+
+	bool setWeight(int weight) {
+		if (weight > 0) {
+			this->weight = weight;
+			return true;
+		}
+		return false;
+	}
+	bool setColor(string color) {
+		if (color != "") {
+			this->color = color;
+			return true;
+		}
+		return false;
+	}
+	void setParams(int weight, string color) {
+		setWeight(weight);
+		setColor(color);
+	}
+	void print() {
+		cout << weight << " (" << color << ")\n";
+	}
+
+	// ++b
+	BowlingBall& operator++() {
+		weight++;
+		return *this;
+	}
+	// b++
+	BowlingBall operator++(int) {
+		BowlingBall tmp(*this);
+		weight++;
+		return tmp;
+	}
+	
+	void compare(BowlingBall A, BowlingBall B){
+	    if (A.weight>B.weight) A.print();
+	    else B.print();
+	    cout<<endl;
+	}
+	
+	void equals(BowlingBall A, BowlingBall B){
+	    if ((A.weight==B.weight)&&(A.color==B.color)) cout<<"Equal";
+	    else cout<<"Not equal";
+	}
+};
+
+int BowlingBall::count = 0;
+
+int main(){
+    BowlingBall A(7, "blue"), B(8, "red");
+    A.compare(A,B); //Находит больший по объёму шар
+    B.equals(A,B); //Определяет, равны ли шары между собой
+    
+	return 0;
+}
