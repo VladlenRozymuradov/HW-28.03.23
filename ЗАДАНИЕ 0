@@ -1,16 +1,75 @@
-
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int main()
-{
-    //префикс сразу возвращает новое значение
-    int x1=5, x2=5, a;
-    a=x1++;
-    cout<<"PRE: "<<a<<endl;
-    a=++x2;
-    cout<<"POST: "<<a;
-    return 0;
-}
+class BowlingBall {
+	int weight;
+	string color;
+public:
+	static int count;
+	BowlingBall() {
+		count++;
+	} // = default;
 
+	BowlingBall(int weight, string color) {
+		count++;
+		setParams(weight, color);
+	}
+
+	BowlingBall(const BowlingBall &other) {
+		setParams(other.weight, other.color);
+		count++;
+	}
+
+	bool setWeight(int weight) {
+		if (weight > 0) {
+			this->weight = weight;
+			return true;
+		}
+		return false;
+	}
+	bool setColor(string color) {
+		if (color != "") {
+			this->color = color;
+			return true;
+		}
+		return false;
+	}
+	void setParams(int weight, string color) {
+		setWeight(weight);
+		setColor(color);
+	}
+	void print() {
+		cout << weight << " (" << color << ")\n";
+	}
+	
+	int sort(BowlingBall A, BowlingBall B){
+	    int a;
+	    if (A.weight>=B.weight) a=A.weight;
+	    else a=B.weight;
+	    return a;
+	}
+	
+	void operator ++(){
+	    (setWeight(++weight));
+	}
+	
+	void operator +(){
+	    (setWeight(weight++));
+	}
+
+};
+
+int BowlingBall::count = 0;
+int main(){
+    BowlingBall A(5, "red"), B(5, "red");
+    ++B;
+    B.print();
+    cout<<" //префиксный инкремент"<<endl;
+    +A;
+    A.print();
+    cout<<" //постфиксный инкремент";
+    
+	return 0;
+}
